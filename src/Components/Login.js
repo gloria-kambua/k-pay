@@ -77,14 +77,14 @@ const InputContainer=styled.div`
             margin-top:5px;
 
             &:hover{
-                border:1px solid orange;
+                border:1px solid #ffcc33;
             }
         }
 `;
 const LoginButton=styled.button`
         width:70%;
         height:35px;
-        background-color: #F3B319;
+        background-color: #ffcc33;
         border:none;
         outline:none;
         border-radius:10px;

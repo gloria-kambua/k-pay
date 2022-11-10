@@ -1,7 +1,9 @@
 import React from 'react'
 import styled from 'styled-components'
+import { useStateValue } from '../StateProvider';
 
 function NavBar() {
+    const [{basket}]=useStateValue();
   return (
     <Container>
         <Inner>
@@ -25,7 +27,7 @@ function NavBar() {
                 </NavButton>
                 <BasketButton>
                     <img src="./shopping-cart.png" alt="Shopping Cart" />
-                    <p>0</p>
+                    <p>{basket.length}</p>
                 </BasketButton>
             </RightContainer>
         </Inner>
@@ -102,7 +104,7 @@ const RightContainer=styled.div`
 
 `;
 const SearchIcon=styled.div`
-    background-color: #F3B319;
+    background-color: #ffcc33;
     height:105%;
     width:40px;
     display:flex;
