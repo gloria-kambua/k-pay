@@ -1,13 +1,15 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components'
 import { useStateValue } from '../StateProvider';
 
 function NavBar() {
     const [{basket}]=useStateValue();
+    const navigate=useNavigate();
   return (
     <Container>
         <Inner>
-            <Logo>
+            <Logo onClick={()=>navigate('/')}>
                 <img src="./logo.svg" alt="" />
             </Logo>
             <SearchBar>
@@ -25,7 +27,7 @@ function NavBar() {
                     <p>Return</p>
                     <p>Orders</p>
                 </NavButton>
-                <BasketButton>
+                <BasketButton onClick={()=>navigate('/checkout')}>
                     <img src="./shopping-cart.png" alt="Shopping Cart" />
                     <p>{basket.length}</p>
                 </BasketButton>

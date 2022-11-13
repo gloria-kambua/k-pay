@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import Rating from '@material-ui/lab/Rating';
 import { useStateValue } from '../StateProvider';
 
-function Card({image,title,price,rating}) {
+function Card({id,image,title,price,rating}) {
     const [{basket},dispatch]=useStateValue();
     console.log('Basket is >>>',basket)
     const addToBasket=(e)=>{

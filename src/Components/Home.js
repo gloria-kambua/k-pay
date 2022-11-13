@@ -12,22 +12,22 @@ function Home() {
             <img src="./mobile_banner.jpg" alt="" />
         </Banner>
         <Main>
-            <Card 
+            <Card id={1}
              image={'https://ke.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/90/019916/1.jpg?6224'}
              price={1293}
              rating={3}
              title={'Maybelline'}/>
-             <Card 
+             <Card id={2}
              image={'https://m.media-amazon.com/images/I/51cGlUCK5WL._AC_UY327_FMwebp_QL65_.jpg'}
              price={9600}
              rating={4.5}
              title={'Echo Dot'}/>
-             <Card 
+             <Card id={3}
              image={'https://m.media-amazon.com/images/I/61n6eByjA7L._SX466_.jpg'}
              price={1453}
              rating={3}
              title={'ORGANYC Feminine Hygiene Wash'}/>
-             <Card 
+             <Card id={4}
              image={'https://m.media-amazon.com/images/I/81wegMl+ykL._AC_UY625_.jpg'}
              price={400}
              rating={4.5}
