@@ -1,5 +1,6 @@
 import React from 'react'
 import CurrencyFormat from 'react-currency-format';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { getTotalBasket } from '../reducer';
 import {useStateValue} from "../StateProvider";
@@ -15,7 +16,7 @@ function Checkout() {
       id:id,
   })
   }
-  console.log('checkout number of orders >>>',basket)
+  const navigate = useNavigate();
   return (
     <Container>
       <NavBar/>
@@ -57,7 +58,7 @@ function Checkout() {
           thousandSeparator={true}
           prefix={"KES "}
           />
-          <button>Proceed to checkout</button>
+          <button onClick={()=>navigate('/address')}>Proceed to checkout</button>
         </Subtotal>
       </Main>
     </Container>
@@ -66,7 +67,6 @@ function Checkout() {
 
 const Container=styled.div`
   width:100%;
-  max-width:1400px;
   height:fit-content;
   margin:auto;
   background-color:rgb(243,237,237);

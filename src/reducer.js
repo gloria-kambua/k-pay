@@ -14,8 +14,7 @@ export const initialState = {
                 ...state,
                 basket: [...state.basket, action.item],
             };
-        case "SET_USER":
-            return state; 
+
         case"REMOVE_FROM_BASKET":
             //get the index of that product whose id is action.id
             const index=state.basket.findIndex(
@@ -31,6 +30,11 @@ export const initialState = {
             return{
                 ...state,
                 basket:newBasket
+            }
+        case"SET_ADDRESS":
+            return{
+                ...state,
+                address:{...action.item}
             }
         default:
             return state

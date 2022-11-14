@@ -113,6 +113,7 @@ const SearchIcon=styled.div`
     align-items:center;
     justify-content:center;
     border-radius:0px 5px 5px 0px;
+    cursor:pointer;
     img{
         width:22px;
 
