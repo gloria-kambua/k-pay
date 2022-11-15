@@ -1,9 +1,21 @@
-import React from 'react'
+import axios from '../axios';
+import React, { useState } from 'react'
+import { useEffect } from 'react';
 import styled from 'styled-components'
 import Card from './Card';
 import NavBar from './NavBar'
 
 function Home() {
+  const[products, setProducts] =useState('')
+  //get data from database/backend
+  useEffect(()=>{
+    const fetchData = async ()=>{
+      const data= await axios.get('/products/get');
+      console.log('product >>>>',data)
+      setProducts(data);
+    };
+    fetchData();
+  },[])
   return (
     <Container>
         <NavBar/>
@@ -12,27 +24,17 @@ function Home() {
             <img src="./mobile_banner.jpg" alt="" />
         </Banner>
         <Main>
-            <Card id={1}
-             image={'https://ke.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/90/019916/1.jpg?6224'}
-             price={1293}
-             rating={3}
-             title={'Maybelline'}/>
-             <Card id={2}
-             image={'https://m.media-amazon.com/images/I/51cGlUCK5WL._AC_UY327_FMwebp_QL65_.jpg'}
-             price={9600}
-             rating={4.5}
-             title={'Echo Dot'}/>
-             <Card id={3}
-             image={'https://m.media-amazon.com/images/I/61n6eByjA7L._SX466_.jpg'}
-             price={1453}
-             rating={3}
-             title={'ORGANYC Feminine Hygiene Wash'}/>
-             <Card id={4}
-             image={'https://m.media-amazon.com/images/I/81wegMl+ykL._AC_UY625_.jpg'}
-             price={400}
-             rating={4.5}
-             title={'Crocs Unisex'}/>
-            
+          {
+            products && products?.data.map((product)=>{
+              <Card id={product._id}
+              image={product.imageUrl}
+              price={1293}
+              rating={3}
+              title={'Maybelline'}/>
+            })
+          }
+
+
         </Main>
     </Container>
   )

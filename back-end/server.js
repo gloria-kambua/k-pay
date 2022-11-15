@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
+const Products = require("./Products");
 
 const app = express();
 const port = 8000;
@@ -29,6 +30,14 @@ app.post("/products/add", (req, res) => {
 
   console.log("Product Detail >>>>", productDetail);
 
+  Products.create(productDetail, (err, data) => {
+    if (err) {
+      res.status(500).send(err.message);
+      console.log(err);
+    } else {
+      res.status(201).send(data);
+    }
+  });
 });
 
 app.listen(port, () => console.log("listening on the port", port));
