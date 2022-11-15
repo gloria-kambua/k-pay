@@ -1,24 +1,34 @@
-const express = require('express')
-const cors = require('cors')
-const mongoose= require('mongoose');
+const express = require("express");
+const cors = require("cors");
+const mongoose = require("mongoose");
 
-const app =express()
-const port =3001
+const app = express();
+const port = 8000;
 
-//Middlewares
-app.use(express.json)
-app.use(cors())
+// Middlewares
+app.use(express.json());
+app.use(cors());
 
-//connection to mongo url
-const connection_URL='mongodb+srv://gloria-kambua:gloria-kambua@cluster0.vc0mrck.mongodb.net/Cluster0?retryWrites=true&w=majority';
+// connection url
 
-mongoose.connect(connection_URL,{
-    useNewUrlParser:true,
-    useUnifiedTopology:true
-})
-//create an api
-app.get('/',(req,res)=>{
-    req.statusCode(200).send('Hello')
-})
+const connection_url =
+'mongodb+srv://gloria-kambua:gloria-kambua@cluster0.vc0mrck.mongodb.net/?retryWrites=true&w=majority'; 
 
-app.listen(port, ()=>console.log('listening the port'))
+mongoose.connect(connection_url, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
+// API
+
+app.get("/", (req, res) => res.status(200).send("Home Page"));
+
+// add product
+
+app.post("/products/add", (req, res) => {
+  const productDetail = req.body;
+
+  console.log("Product Detail >>>>", productDetail);
+
+});
+
+app.listen(port, () => console.log("listening on the port", port));
