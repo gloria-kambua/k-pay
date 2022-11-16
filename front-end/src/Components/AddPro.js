@@ -12,9 +12,11 @@ function AddPro() {
   const handleChange =(e)=>{
     setNewProduct({...newProduct,[e.target.name]:e.target.value})
   }
+
   const handlePhoto=(e)=>{
     setNewProduct({...newProduct,photo:e.target.value})
   }
+
   const handleSubmit=(e)=>{
     e.preventDefault();
     const formData= new FormData();

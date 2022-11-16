@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors");
+const fs = require('fs')
 const mongoose = require("mongoose");
 const Products = require("./Products");
 
@@ -21,15 +22,26 @@ mongoose.connect(connection_url, {
 });
 // API
 
+//Multer
+const multer = require('multer');
+const upload = multer({dest:'images/'})
+
+
+
+
 app.get("/", (req, res) => res.status(200).send("Home Page"));
 
 // add product
 
-app.post("/products/add", (req, res) => {
-  const productDetail = req.body;
+app.post("/products/add",(req, res) => {
 
-  console.log("Product Detail >>>>", productDetail);
+  // const imagePath = req.file.path
+  // const price = req.body.price
+  // const title=req.body.title
+  // const rating= req.body.rating
 
+  const productDetail=req.body;
+  console.log('product details are ****', productDetail)
   Products.create(productDetail, (err, data) => {
     if (err) {
       res.status(500).send(err.message);
@@ -40,4 +52,23 @@ app.post("/products/add", (req, res) => {
   });
 });
 
+//app.use('/images', express.static('images'))
+
+
+app.get('/products/get',(req,res)=>{
+
+
+  Products.find((err,data)=>{
+  console.log(`data from db`, data)
+
+  let result = data.map(({ imagePath }) => imagePath)
+    //console.log('the file path is ',result)
+
+    if(err){
+      res.status(500).send(err)
+    }else{
+      res.status(200).send(data)
+    }
+  })
+})
 app.listen(port, () => console.log("listening on the port", port));

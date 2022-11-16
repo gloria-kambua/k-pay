@@ -12,6 +12,7 @@ function Home() {
     const fetchData = async ()=>{
       const data= await axios.get('/products/get');
       console.log('product >>>>',data)
+      
       setProducts(data);
     };
     fetchData();
@@ -24,18 +25,17 @@ function Home() {
             <img src="./mobile_banner.jpg" alt="" />
         </Banner>
         <Main>
-          {
-            products && products?.data.map((product)=>{
-              <Card id={product._id}
-              image={product.imageUrl}
-              price={1293}
-              rating={3}
-              title={'Maybelline'}/>
-            })
-          }
-
-
-        </Main>
+        {products &&
+          products?.data.map((product) => (
+            <Card
+              id={product._id}
+              image={product.imageURL}
+              price={product.price}
+              rating={product.rating}
+              title={product.title}
+            />
+          ))}
+      </Main>
     </Container>
   )
 }

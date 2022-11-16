@@ -4,66 +4,34 @@ import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
 import { useState, useEffect } from 'react';
 import axios from '../axios';
+import { useNavigate } from 'react-router-dom';
 
-const imageMimeType = /image\/(png|jpg|jpeg)/i;
 
 function AddProduct() {
+    const navigate =useNavigate()
+
     // const [selectedImage, setSelectedImage] = useState(null);
     // const [imageUrl, setImageUrl] = useState(null);
-    
-    // console.log('the image is ',selectedImage)
+
     // useEffect(() => {
     //     if (selectedImage) {
     //       setImageUrl(URL.createObjectURL(selectedImage));
     //     }
     //   }, [selectedImage]);
-    
-    const [file, setFile] = useState(null);
-  const [fileDataURL, setFileDataURL] = useState(null);
-
-  const changeHandler = (e) => {
-    const file = e.target.files[0];
-    console.log('file is ',file)
-    if (!file.type.match(imageMimeType)) {
-      alert("Image mime type is not valid");
-      return;
-    }
-    setFile(file);
-  }
-  useEffect(() => {
-    let fileReader, isCancel = false;
-    if (file) {
-      fileReader = new FileReader();
-      fileReader.onload = (e) => {
-        const { result } = e.target;
-        if (result && !isCancel) {
-          setFileDataURL(result)
-        }
-      }
-      fileReader.readAsDataURL(file);
-    }
-    return () => {
-      isCancel = true;
-      if (fileReader && fileReader.readyState === 1) {
-        fileReader.abort();
-      }
-    }
-  }, [file]);
-
     const [title, setTitle] =useState('');
+    const [imageURL, setImageURL] =useState('');
     const [price, setPrice] =useState(0);
     const [rating, setRating] =useState(0);
 
     const addProduct =(e)=>{
         e.preventDefault();
-        let filepath =document.getElementById("image").files[0].name; 
-        console.log('file path is ', filepath)
-        axios.post("/products/add", { title, fileDataURL, price, rating })
+        axios.post("/products/add", { title, imageURL, price, rating })
             .then(() => {
                 setTitle("");
-                //setImageUrl(null);
+                setImageURL('');
                 setPrice(0);
                 setRating(0);
+                navigate('/');
             })
             .catch((error) => alert(error.message));
     }
@@ -79,28 +47,32 @@ function AddProduct() {
                 <input type="text" placeholder="" onChange={(e)=>setTitle(e.target.value)} value={title}/>
             </InputContainer>
             <InputContainer>
+                <p>Image URL</p>
+                <input type="text" placeholder="" onChange={(e)=>setImageURL(e.target.value)} value={imageURL}/>
+            </InputContainer>
+            {/* <InputContainer>
                 <p>Image</p>
                 <>
                 <input
-                    accept='.png, .jpg, .jpeg'
+                    accept="image/*"
                     type="file"
-                    id='image'
+                    id="image"
                     style={{ display: 'none' }}
-                    onChange={changeHandler}
+                    onChange={e => setSelectedImage(e.target.files[0])}
                     />
                 <label htmlFor="image">
                     <Button variant="contained" color="primary" component="span" style={ButtonStyle}>
                         Upload Image
                     </Button>
                 </label>
-                {fileDataURL && file && (
+                {imageUrl && selectedImage && (
                     <Box mt={2} textAlign="center">
                     <div style={{ margin: '10px' }}>Image Preview:</div>
-                    <img src={fileDataURL} alt={file.name} height="100px" style={ImageStyle} id="image"/>
+                    <img src={imageUrl} alt={selectedImage.name} height="100px" style={ImageStyle} id="image"/>
                     </Box>
                 )}
                 </>
-            </InputContainer>
+            </InputContainer> */}
             <InputContainer>
                 <p>Price</p>
                 <input type="text" placeholder='KES'onChange={(e)=>setPrice(e.target.value)} value={price}/>
