@@ -1,7 +1,13 @@
 import React from 'react'
 import styled from 'styled-components';
+import { useState } from 'react';
 
 function Login() {
+    const [phonenumber, setPhoneNumber]=useState('');
+    const [password, setPassword]=useState('');
+    const btnLogin = ()=>{
+
+    }
   return (
     <Container>
         <Logo>
@@ -10,14 +16,14 @@ function Login() {
         <FormContainer>
             <h3>Sign-In</h3>
             <InputContainer>
-                <p>Email</p>
-                <input type="email" placeholder='example@example.com'/>
+                <p>Phone Number</p>
+                <input type="number" placeholder='254740152507' onChange={(e)=>setPhoneNumber(e.target.value)} value={phonenumber} required/>
             </InputContainer>
             <InputContainer>
                 <p>Password</p>
-                <input type="password" placeholder='**********'/>
+                <input type="password" placeholder='**********'onChange={(e)=>setPassword(e.target.value)} value={password}/>
             </InputContainer>
-            <LoginButton>Login</LoginButton>
+            <LoginButton  onClick={btnLogin}>Login</LoginButton>
             <InfoText>
                 By continuing, you agree to K-Mart's <span>Terms and Conditions</span>.
             </InfoText>

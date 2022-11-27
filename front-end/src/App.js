@@ -10,7 +10,6 @@ import SignUp from './Components/SignUp';
 import {Elements} from '@stripe/react-stripe-js';
 import {loadStripe} from '@stripe/stripe-js';
 import AddProduct from './Components/AddProduct';
-import AddPro from './Components/AddPro';
 function App() {
   const promise=loadStripe(
     'pk_test_51M3umaK9152s7sV08XcpMikUsBA76RR6WWUC7BokdQvJFdcq5LZ3kpFbdk1aIV1VEidvJPWi2Epv0HcAZrCAo4JR00JqtkrTvn'
@@ -26,7 +25,6 @@ function App() {
           <Route path="/address" element={<Address/>}/>
           <Route path="/payment" element={<Elements stripe={promise}><Payment/></Elements>}/>
           <Route path="/addproduct" element={<AddProduct/>}/>
-          <Route path="/addproduct2" element={<AddPro/>}/>
         </Routes>
       </Container>
     </Router>

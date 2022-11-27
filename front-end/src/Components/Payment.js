@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import { useStateValue } from '../StateProvider';
 import NavBar from './NavBar';
@@ -6,12 +6,62 @@ import CurrencyFormat from 'react-currency-format';
 import { getTotalBasket } from '../reducer';
 import { useNavigate } from 'react-router-dom';
 import {CardElement,useElements,useStripe} from '@stripe/react-stripe-js'
+import { useEffect } from 'react';
+import axios from '../axios';
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
 function Payment() {
-    const [{basket,address}] = useStateValue();
+    const [{basket,address,user},dispatch] = useStateValue();
     const navigate = useNavigate();
-    
+    const MySwal = withReactContent(Swal)
+
     const elements=useElements()
     const stripe = useStripe()
+    const [clientSecret, setClientSecret] = useState('')
+    useEffect(()=>{
+      const fetchClientKey = async()=>{
+        const data = await axios.post('/payment/create',{
+          amount:getTotalBasket(basket),
+        })
+        setClientSecret(data.data.clientSecret);
+      }
+      fetchClientKey();
+      console.log("clientSecret is >>>>", clientSecret);
+    },[])
+
+    const confirmPayment = async (e)=>{
+      e.preventDefault();
+
+      await stripe.confirmCardPayment(clientSecret,{
+        payment_method:{
+          card:elements.getElement(CardElement)
+      }
+      })
+      .then((result)=>{
+        //clear basket
+        axios.post('/orders/add',{
+          basket:basket,
+          price:getTotalBasket(basket),
+          phone:address?.phone,
+          address:address
+        })
+
+
+        dispatch({
+          type:'EMPTY_BASKET',
+        })
+        MySwal.fire({
+          icon: 'success',
+          title: <p>Payment Successful</p>,
+          confirmButtonColor: '#3085d6',
+        }).then(() => {
+          navigate('/')
+        })
+      })
+      .catch((err)=>{
+        console.warn(err)
+      })
+    }
   return (
     <Container>
         <NavBar/>
@@ -74,7 +124,7 @@ function Payment() {
                 thousandSeparator={true}
                 prefix={"KES "}
                 />
-                <button onClick={()=>navigate('/address')}>Place Order</button>
+                <button onClick={confirmPayment}>Place Order</button>
             </Subtotal>
         </Main>
     </Container>
@@ -153,6 +203,8 @@ const Subtotal=styled.div`
     border:none;
     outline:none;
     border-radius:8px;
+    cursor:pointer;
+
   }
 `;
 const PaymentContainer=styled.div`
@@ -204,5 +256,8 @@ const Description=styled.div`
       text-decoration: underline;
     }
   }
+`;
+const SuccessMessageContainer= styled.div`
+  display:none;
 `;
 export default Payment

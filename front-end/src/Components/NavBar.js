@@ -6,13 +6,14 @@ import { useStateValue } from '../StateProvider';
 function NavBar() {
     const [{basket}]=useStateValue();
     const navigate=useNavigate();
+
   return (
     <Container>
         <Inner>
             <Logo onClick={()=>navigate('/')}>
                 <img src="./logo.svg" alt="" />
             </Logo>
-            <SearchBar onClick={()=>navigate('/addproduct')}>
+            <SearchBar>
                 <input type="text" placeholder='Search...'/>
                 <SearchIcon>
                     <img src="./search-icon-image.svg" alt="" />
@@ -34,7 +35,7 @@ function NavBar() {
             </RightContainer>
         </Inner>
         <MobileSearchBar>
-                <input type="text" placeholder='Search...'/>
+                <input type="text" placeholder='Search...' />
                 <SearchIcon onClick={()=>navigate('/addproduct')}>
                     <img src="./search-icon-image.svg" alt="" />
                 </SearchIcon>

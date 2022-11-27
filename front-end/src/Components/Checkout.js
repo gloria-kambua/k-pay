@@ -70,7 +70,6 @@ const Container=styled.div`
   height:fit-content;
   margin:auto;
   background-color:rgb(243,237,237);
-  border:1px solid red;
 `;
 const Main=styled.div`
   display:flex;

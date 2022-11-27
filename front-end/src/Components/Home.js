@@ -4,15 +4,15 @@ import { useEffect } from 'react';
 import styled from 'styled-components'
 import Card from './Card';
 import NavBar from './NavBar'
+import SideBar from './SideBar'
 
 function Home() {
   const[products, setProducts] =useState('')
   //get data from database/backend
   useEffect(()=>{
     const fetchData = async ()=>{
-      const data= await axios.get('/products/get');
-      console.log('product >>>>',data)
-      
+      const data= await axios.get('/products/get');     
+      console.log(data) 
       setProducts(data);
     };
     fetchData();
@@ -21,8 +21,11 @@ function Home() {
     <Container>
         <NavBar/>
         <Banner>
-            <img src="./banner.jpg" alt="Banner" />
-            <img src="./mobile_banner.jpg" alt="" />
+            <SideBar/>
+            <ImageBanner>
+              <img src="./banner.jpg" alt="Banner" />
+              <img src="./mobile_banner.jpg" alt="" />
+            </ImageBanner>
         </Banner>
         <Main>
         {products &&
@@ -49,35 +52,38 @@ const Container = styled.div`
 
 const Banner = styled.div`
   width: 100%;
-  img {
-    width: 100%;
-    -webkit-mask-image: linear-gradient(
-      to bottom,
-      rgba(0, 0, 0, 2),
-      rgba(0, 0, 0, 0.95),
-      rgba(0, 0, 0, 0.85),
-      rgba(0, 0, 0, 0.75),
-      rgba(0, 0, 0, 0.55),
-      rgba(0, 0, 0, 0)
-    );
+  display:flex;
+`;
+const ImageBanner=styled.div`
+flex: 0.95;
+img {
+  width: 100%;
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 2),
+    rgba(0, 0, 0, 0.95),
+    rgba(0, 0, 0, 0.85),
+    rgba(0, 0, 0, 0.75),
+    rgba(0, 0, 0, 0.55),
+    rgba(0, 0, 0, 0)
+  );
 
-    &:nth-child(2) {
+  &:nth-child(2) {
+    display: none;
+  }
+
+  @media only screen and (max-width: 767px) {
+    &:nth-child(1) {
       display: none;
     }
 
-    @media only screen and (max-width: 767px) {
-      &:nth-child(1) {
-        display: none;
-      }
-
-      &:nth-child(2) {
-        display: block;
-        -webkit-mask-image: none;
-      }
+    &:nth-child(2) {
+      display: block;
+      -webkit-mask-image: none;
     }
   }
+}
 `;
-
 const Main = styled.div`
   display: grid;
   justify-content: center;
@@ -105,4 +111,5 @@ const Main = styled.div`
     padding: 10px 0px;
   }
 `;
+
 export default Home

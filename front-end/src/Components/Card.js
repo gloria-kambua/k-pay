@@ -5,7 +5,6 @@ import { useStateValue } from '../StateProvider';
 
 function Card({id,image,title,price,rating}) {
     const [{basket},dispatch]=useStateValue();
-    console.log('Basket is >>>',basket)
     const addToBasket=(e)=>{
         e.preventDefault();
 
@@ -25,7 +24,9 @@ function Card({id,image,title,price,rating}) {
             <img src={image} alt="" />
         </Image>
         <Description>
-            <h5>{title}</h5>
+            <div>
+                <h5>{title}</h5>
+            </div>
             <Rating name="half-rating-read" defaultValue={rating} precision={0.5} readOnly />
             <p>KES {price}</p>
             <button onClick={addToBasket}>Add to Cart</button>
@@ -65,9 +66,13 @@ const Description=styled.div`
     justify-content:spave-evenly;
     flex:0.7;
 
-    h5{
-        font-weight:600;
-
+    div{
+        display:flex;
+        height: 35%;
+        h5{
+            font-weight:600;
+    
+        }
     }
     p{
         font-weight:600;
