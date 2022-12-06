@@ -11,7 +11,7 @@ function Login() {
   return (
     <Container>
         <Logo>
-            <img src="./logo.svg" alt="My Logo" />
+            <img src="./new-logo.svg" alt="My Logo" />
         </Logo>
         <FormContainer>
             <h3>Sign-In</h3>
@@ -47,7 +47,8 @@ const Logo= styled.div`
     width:120px;
     margin-bottom:20px;
     img{
-        width:100%
+        width:100%;
+        background: black;
     }
 `;
 const FormContainer = styled.form`

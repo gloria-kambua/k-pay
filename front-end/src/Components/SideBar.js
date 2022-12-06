@@ -145,6 +145,7 @@ const Container=styled.div`
     height: fit-content;
     display: flex;
     padding-right: 1rem;
+    flex: 0.15;
     }
 `;
 const MainNav=styled.div`

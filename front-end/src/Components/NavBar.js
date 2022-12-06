@@ -2,16 +2,18 @@ import React from 'react'
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components'
 import { useStateValue } from '../StateProvider';
-
+import MiniSideBar from './MiniSideBar';
+import UseWindowSize from './UseWindowSize'
 function NavBar() {
     const [{basket}]=useStateValue();
     const navigate=useNavigate();
-
+    const size = UseWindowSize();    
   return (
     <Container>
         <Inner>
-            <Logo onClick={()=>navigate('/')}>
-                <img src="./logo.svg" alt="" />
+            <Logo>
+                <p onClick={()=>navigate('/addproduct')}>Sell on K-MART</p>
+                <img src="./new-logo.svg" alt="" onClick={()=>navigate('/addproduct')}/>
             </Logo>
             <SearchBar>
                 <input type="text" placeholder='Search...'/>
@@ -35,6 +37,7 @@ function NavBar() {
             </RightContainer>
         </Inner>
         <MobileSearchBar>
+                {size.width < 767 && <MiniSideBar/>}
                 <input type="text" placeholder='Search...' />
                 <SearchIcon onClick={()=>navigate('/addproduct')}>
                     <img src="./search-icon-image.svg" alt="" />
@@ -69,9 +72,14 @@ const Inner=styled.div`
 const Logo=styled.div`
     margin-left:20px;
     cursor:pointer;
+    p{
+        color: #F68B1E;
+        font-size: 13px;
+        margin-top: 15px;
+    }
     img{
-        width:100px;
-        margin-top:10px;
+        margin-top: -31px;
+        margin-left: -15px;
     }
 `;
 const SearchBar=styled.div`

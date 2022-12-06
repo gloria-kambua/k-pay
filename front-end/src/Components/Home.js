@@ -5,7 +5,7 @@ import styled from 'styled-components'
 import Card from './Card';
 import NavBar from './NavBar'
 import SideBar from './SideBar'
-
+import UseWindowSize from './UseWindowSize'
 function Home() {
   const[products, setProducts] =useState('')
   //get data from database/backend
@@ -17,11 +17,15 @@ function Home() {
     };
     fetchData();
   },[])
+  const size = UseWindowSize();    
+  console.log(`size in home is ${size.width}`)
   return (
     <Container>
         <NavBar/>
         <Banner>
-            <SideBar/>
+        {/* {size.width > 600 && <SideBar/>} */}
+        {size.width > 767 && <SideBar/>}
+
             <ImageBanner>
               <img src="./banner.jpg" alt="Banner" />
               <img src="./mobile_banner.jpg" alt="" />
@@ -67,7 +71,6 @@ img {
     rgba(0, 0, 0, 0.55),
     rgba(0, 0, 0, 0)
   );
-
   &:nth-child(2) {
     display: none;
   }
