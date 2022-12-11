@@ -37,7 +37,6 @@ function NavBar() {
             </RightContainer>
         </Inner>
         <MobileSearchBar>
-                {size.width < 767 && <MiniSideBar/>}
                 <input type="text" placeholder='Search...' />
                 <SearchIcon onClick={()=>navigate('/addproduct')}>
                     <img src="./search-icon-image.svg" alt="" />
