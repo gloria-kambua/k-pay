@@ -3,7 +3,6 @@
 
 This is a free ecommerce open source website. I love collaborating with people and coming up with projects that can help the community and business in General. The aim for this project is to help people with small business get to market and sell their products online
 
-![screenshot](./app/assets/images/signup-twitter.png)
 
 ## Built With
 
@@ -29,10 +28,12 @@ To get this project up and running locally, you must already have nodejs install
 ```
 
 ### Run Tests
-
-- `$npm i `
-- `$npm start `
-
+```
+- Run cd front-end`
+- $ npm i
+- Go to another terminal \k-pay and run cd back-end `
+- Run nodemon `
+```
 
 ## Author
 
